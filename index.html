@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuvix</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #0bbcfc;
+      line-height: 1.6;
+    }
+
+    /* Cabeçalho com logo e nome */
+    .cabecalho {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      background-color: #12b3e9;
+      box-shadow: 0 4px 10px rgb(0, 38, 255);
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .titulo-site {
+      font-size: 36px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Menu de navegação fixo */
+    .tela {
+      background-color: #3a3a3a;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .link {
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .link:hover {
+      background-color: #1e1e1e;
+    }
+
+    /* Seção "Galeria de Imagens" */
+    .galeria-imagens {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+      background-color: #fff;
+    }
+
+    .galeria-imagens img {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .galeria-imagens img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Seção "Sobre Nós" */
+    .sobre-nos {
+      padding: 60px 20px;
+      text-align: center;
+      background-color: #e9f0ff;
+    }
+
+    .sobre-nos h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #2a2a2a;
+    }
+
+    .sobre-nos p {
+      font-size: 18px;
+      color: #00b2f8;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Seção "Serviços" */
+    .servicos {
+      padding: 60px 20px;
+      background-color: #e0f0ff;
+    }
+
+    .servicos h2 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #2a2a2a;
+    }
+
+    .servico {
+      display: flex;
+      justify-content: space-around;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .servico div {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      flex-basis: 30%;
+      transition: transform 0.3s ease;
+    }
+
+    .servico div:hover {
+      transform: translateY(-10px);
+    }
+
+    .servico h3 {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    /* Seção Testemunhos */
+    .testemunhos {
+      background-color: #f9f9f9;
+      padding: 60px 20px;
+    }
+
+    .testemunhos h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #2a2a2a;
+    }
+
+    .testemunhos .testemunho {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    /* Formulário de Contato */
+    .contato {
+      background-color: #ffffff;
+      padding: 60px 20px;
+    }
+
+    .contato h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #0f8cdf;
+    }
+
+    .contato form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contato input, .contato textarea {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contato input:focus, .contato textarea:focus {
+      border-color: #5c5c5c;
+      outline: none;
+    }
+
+    .contato button {
+      padding: 12px 20px;
+      background-color: #02a4f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contato button:hover {
+      background-color: #555;
+    }
+
+    /* Botão Voltar ao Topo */
+    .voltar-topo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #0c4fe1;
+      color: rgb(2, 17, 235);
+      padding: 15px;
+      border-radius: 50%;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .voltar-topo:hover {
+      background-color: #555;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .tela {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .galeria-imagens {
+        gap: 15px;
+      }
+
+      .servico {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .titulo-site {
+        font-size: 28px;
+      }
+
+      .servico div {
+        flex-basis: 100%;
+      }
+
+      .contato form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <img src="img/img07.jpg" alt="Logo Nuvix" class="logo">
+    <h1 class="titulo-site">Nuvix</h1>
+  </header>
+
+  <!-- Menu de navegação -->
+  <div class="tela">
+    <a class="link" href="#sobre-nos">Sobre Nós</a>
+    <a class="link" href="#servicos">Serviços</a>
+    <a class="link" href="#testemunhos">Testemunhos</a>
+    <a class="link" href="#contato">Contato</a>
+  </div>
+
+  <!-- Galeria de Imagens -->
+  <section id="galeria-imagens" class="galeria-imagens">
+    <img src="img/img01.webp" alt="Imagem 1">
+    <img src="img/img02.gif" alt="Imagem 2">
+    <img src="img/img03.jpg" alt="Imagem 3">
+    <img src="img/img04.jpg" alt="Imagem 4">
+    <img src="img/img05.webp" alt="Imagem 5">
+    <img src="img/img06.jpg" alt="Imagem 6">
+  </section>
+
+  <!-- Seção Sobre Nós -->
+  <section id="sobre-nos" class="sobre-nos">
+    <h2>Sobre Nós</h2>
+    <p>A Nuvix é uma plataforma inovadora que visa transformar a logística e o rastreamento de cargas com soluções inteligentes e eficientes. Nossa missão é oferecer a melhor experiência aos nossos clientes, utilizando tecnologia de ponta para otimizar processos e garantir segurança e confiabilidade.</p>
+  </section>
+
+  <!-- Seção Serviços -->
+  <section id="servicos" class="servicos">
+    <h2>Serviços</h2>
+    <div class="servico">
+      <div>
+        <h3>Logística Inteligente</h3>
+        <p>Soluciona o rastreamento de cargas de forma eficiente e em tempo real.</p>
+      </div>
+      <div>
+        <h3>Automação de Processos</h3>
+        <p>Automatiza toda a cadeia logística, aumentando a produtividade.</p>
+      </div>
+      <div>
+        <h3>Plataforma Digital</h3>
+        <p>Interface intuitiva para gerenciar todas as operações logísticas com facilidade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Testemunhos -->
+  <section id="testemunhos" class="testemunhos">
+    <h2>O que nossos clientes dizem</h2>
+    <div class="testemunho">
+      <p>"A Nuvix transformou a forma como gerenciamos nossas operações logísticas. Excelente suporte e tecnologia de ponta!"</p>
+      <p><strong>- João Silva, CEO da Transportes XYZ</strong></p>
+    </div>
+    <div class="testemunho">
+      <p>"A plataforma é extremamente fácil de usar e facilitou o rastreamento das nossas cargas. Muito satisfeitos!"</p>
+      <p><strong>- Maria Costa, Diretora de Operações da Cargo Express</strong></p>
+    </div>
+  </section>
+
+  <!-- Seção Contato -->
+  <section id="contato" class="contato">
+    <h2>Entre em Contato</h2>
+    <form action="#">
+      <input type="text" name="nome" placeholder="Seu Nome" required>
+      <input type="email" name="email" placeholder="Seu E-mail" required>
+      <textarea name="mensagem" rows="5" placeholder="Sua Mensagem" required></textarea>
+      <button type="submit">Enviar</
+  </footer>
+
+  <!-- Botão Voltar ao Topo -->
+  <button class="voltar-topo" id="botao-voltar-topo" onclick="scrollToTop()">↑</button>
+
+  <script>
+    // Função para rolar até o topo
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Mostrar o botão quando o usuário rolar a página
+    window.onscroll = function() {
+      const botao = document.getElementById('botao-voltar-topo');
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        botao.style.display = "block";
+      } else {
+        botao.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+        
